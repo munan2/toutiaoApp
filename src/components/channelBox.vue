@@ -7,7 +7,8 @@
             </div>
         </div>
         <div class="channel-box">
-            <span class="channel-box-title">点击添加以下频道</span>
+            <span class="channel-box-title special-title" v-if="channelList.changeChannel==true">最多16个频道，请先删除一些</span>
+            <span class="channel-box-title" v-else>点击添加以下频道</span>
             <div class="no-channel-box">
                 <channel-span v-for="(item, index) in channelList.noChannelList.list" :channelName="item.name" :key="index" :type=1 :index="index"></channel-span>
             </div>
@@ -16,7 +17,7 @@
 </template>
 <script>
     import channelSpan from './channelSpan'
-    import { mapState, mapActions } from 'vuex'
+    import { mapState, mapActions, mapGetters} from 'vuex'
     export default {
         components: {
             channelSpan
@@ -25,22 +26,18 @@
             return {
             }
         },
-        computed: mapState({
-            channelList (state) {
-                return state.channelList;
-            }
-        }),
-        mounted () {
+        computed: {
+            ...mapState([
+                'channelList'
+            ]),
+            ...mapGetters([
+                'hasChannel'
+            ])
         },
         methods: {
             ...mapActions ([
                 'moveTags'
             ])
-        },
-        watch: {
-            channelList (cul, old) {
-                console.log(cul);
-            }
         }
     }
 </script>
@@ -48,7 +45,6 @@
     .channel-content-box {
         background: #f8f8f8;
         height: 100vh;
-        /* padding: 0 0.2rem; */
         .channel-box {
             font-size: 0.24rem;
             .channel-box-title {
@@ -57,6 +53,9 @@
                 padding: 0.1rem 0.2rem;
                 background: #f5f5f5;
                 font-weight: 300;
+            }
+            .special-title {
+                color: #f00;
             }
             .have-channel-box, .no-channel-box {
                 overflow: auto;

@@ -7,7 +7,7 @@
     
 </template>
 <script>
-    import {mapState, mapActions, mapGetters} from 'vuex'
+    import {mapState, mapActions} from 'vuex'
     export default {
         data () {
             return {
@@ -23,9 +23,6 @@
             ...mapState([
                 'channelList',
                 'changeChannel'
-            ]),
-            ...mapGetters([
-                'hasChannel'
             ])
         },
         methods: {
