@@ -1,35 +1,62 @@
 <template>
     <div class="card-box">
-        <h2>中国习观｜未来十年，金砖合作将面临什么？习近平这样说</h2>
-        <div class="content-detail">
-            <span class="go-top item-tag">置顶</span>
-            <span>中国网</span>
-            <span><span>评论<span>51</span></span></span>
-            <span><span>15分钟</span><span>前</span></span>
-        </div>
+            <div v-if="newsList.imgs.length === 1 && newsList.type !==1 " class="card-box-container card-box-container-one">
+                <div class="card-header card-img-one">
+                    <h2>{{newsList.title}}</h2>
+                    <card-intro></card-intro>
+                </div>
+                <card-img :cardImg="newsList.imgs"></card-img>
+            </div>
+            <div v-else class="card-box-container card-box-container-more">
+                <div class="card-header">
+                    <h2>{{newsList.title}}</h2>
+                </div>
+                <card-img :cardImg="newsList.imgs" :imgClass="newsList.type"></card-img>
+                <card-intro></card-intro>
+            </div>
     </div>
 </template>
+<script>
+    import cardIntro from './cardIntro'
+    import cardImg from './cardImg'
+    export default {
+        components: {
+            cardIntro,
+            cardImg
+        },
+        props: [
+            'newsList'
+        ],
+        data () {
+            return {
+
+            }
+        }
+    }
+</script>
 <style lang="less">
     @import '../assets/style/common.css';
     .card-box {
         border-bottom: 1px solid rgba(221, 221, 221, 0.6);
         padding: 0.3rem 0;
-        h2 {
-            font-size: 0.34rem;
-            font-weight: normal;
-            color: #222;
-        }
-        .content-detail {
-            color: #999;
-            margin-top: 0.1rem;
-            font-size: 0.12rem;
-            /* transform: scale(0.9); */
-            .item-tag {
-                padding: 0 0.04rem;
-                border-radius: 0.1rem;
-                color: #f85959;
-                border: 1px solid rgba(248, 89, 89, 0.5);
+        .card-box-container {
+            .card-header {
+                width: 100%;
+                h2 {
+                    font-size: 0.34rem;
+                    font-weight: normal;
+                    color: #222;
+                }
             }
+            .card-img-one {
+                flex: 1;
+            }
+        }
+        .card-box-container-one {
+            display: flex;
+        }
+        &:last-child {
+            border-bottom: none;
         }
     }
 </style>

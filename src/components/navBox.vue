@@ -7,7 +7,7 @@
                 </li>
             </ul>
         </div>
-        <span class="add-tag">+</span>
+        <a class="add-tag" href="/ChaManage">+</a>
     </div>
 </template>
 <script>
