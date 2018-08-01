@@ -1,13 +1,18 @@
 <template>
     <div class="content-detail">
-        <span class="go-top item-tag">置顶</span>
-        <span>中国网</span>
-        <span><span>评论<span>51</span></span></span>
-        <span><span>15分钟</span><span>前</span></span>
+        <span class="go-top item-tag" v-if="newsList.flag===1">置顶</span>
+        <span class="go-top item-tag" v-if="newsList.flag===2">热</span>
+        <span class="go-top item-tag" v-if="newsList.flag===3">广告</span>
+        <span>{{newsList.origin}}</span>
+        <span v-if="newsList.commentNum >= 0"><span>评论<span>{{newsList.commentNum}}</span></span></span>
+        <span v-if="newsList.time"><span>{{newsList.time}}</span><span>前</span></span>
     </div>
 </template>
 <script>
     export default {
+        props: [
+            'newsList'
+        ],
         data () {
             return {
 

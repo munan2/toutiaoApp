@@ -3,18 +3,22 @@ export default {
     [MOVE_CHANNEL](state, {type, idx}) {
         let noChannelList = state.channelList.noChannelList.list;
         let hasChannelList = state.channelList.hasChannelList.list;
-        if (type === 0 && idx !== 0) {
-            let arr = hasChannelList[idx];
-            noChannelList.push(arr);
-            hasChannelList.splice(idx, 1);
-            state.channelList.changeChannel = false;
+        if (type === 0) {
+            if (idx !== 0) {
+                let arr = hasChannelList[idx];
+                noChannelList.push(arr);
+                hasChannelList.splice(idx, 1);
+                state.changeChannel = false;
+            } else {
+
+            } 
         } else if (hasChannelList.length < 16){
             let arr = noChannelList[idx];
             hasChannelList.push(arr);
             noChannelList.splice(idx, 1);
-            state.channelList.changeChannel = false;
+            state.changeChannel = false;
         } else {
-            state.channelList.changeChannel = true;
+            state.changeChannel = true;
         }
-    } 
+    }
 }

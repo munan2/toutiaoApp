@@ -7,7 +7,7 @@
     
 </template>
 <script>
-    import {mapState, mapActions} from 'vuex'
+    import {mapActions} from 'vuex'
     export default {
         data () {
             return {
@@ -19,12 +19,6 @@
             'type',
             'index'
         ],
-        computed: {
-            ...mapState([
-                'channelList',
-                'changeChannel'
-            ])
-        },
         methods: {
             ...mapActions([
                 'moveTags'

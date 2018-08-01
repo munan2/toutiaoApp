@@ -1,14 +1,30 @@
 <template>
     <div class="common-header-box">
-        <a href="javascript:history.back(-1)" class="back-button"></a>
+        <a href="javascript:;" class="back-button" @click="backHome()"></a>
         <span class="common-header-title">{{headerTitle}}</span>
     </div>
 </template>
 <script>
+    import {mapState, mapActions} from 'vuex'
     export default {
         props: [
             'headerTitle'
-        ]
+        ],
+        data () {
+            return {
+
+            }
+        },
+        methods: {
+            ...mapActions([
+                'changeNav'
+            ]),
+            backHome () {
+                this.changeNav()
+                this.$router.push('/')
+                // window.history.back(-1); 
+            }
+        }
     }
 </script>
 <style lang="less">
@@ -34,7 +50,8 @@
         }
         .common-header-title {
             color: #fff;
-            font-size: 0.32rem;
+            font-size: 0.4rem;
+            font-weight: 800;
         }
     }
 </style>

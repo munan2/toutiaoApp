@@ -1,18 +1,18 @@
 <template>
-    <div class="card-box">
-            <div v-if="newsList.imgs.length === 1 && newsList.type !==1 " class="card-box-container card-box-container-one">
+    <div class="card-box" :data-flag="newsList.flag">
+            <div v-if="newsList.img.length === 1 && newsList.flag !==3 " class="card-box-container card-box-container-one">
                 <div class="card-header card-img-one">
-                    <h2>{{newsList.title}}</h2>
-                    <card-intro></card-intro>
+                    <h2 v-html="newsList.title"></h2>
+                    <card-intro :newsList="newsList"></card-intro>
                 </div>
-                <card-img :cardImg="newsList.imgs"></card-img>
+                <card-img :cardImg="newsList.img"></card-img>
             </div>
             <div v-else class="card-box-container card-box-container-more">
                 <div class="card-header">
-                    <h2>{{newsList.title}}</h2>
+                    <h2 v-html="newsList.title"></h2>
                 </div>
-                <card-img :cardImg="newsList.imgs" :imgClass="newsList.type"></card-img>
-                <card-intro></card-intro>
+                <card-img :data-flag="newsList.id" :cardImg="newsList.img" :imgClass="newsList.img.length"></card-img>
+                <card-intro :newsList="newsList"></card-intro>
             </div>
     </div>
 </template>
@@ -24,14 +24,14 @@
             cardIntro,
             cardImg
         },
-        props: [
-            'newsList'
-        ],
         data () {
             return {
 
             }
-        }
+        },
+        props: [
+            'newsList'
+        ]
     }
 </script>
 <style lang="less">
@@ -46,6 +46,10 @@
                     font-size: 0.34rem;
                     font-weight: normal;
                     color: #222;
+                    highlight {
+                        color: #fe3333;
+                        font-weight: 800;
+                    }
                 }
             }
             .card-img-one {

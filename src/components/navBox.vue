@@ -2,8 +2,8 @@
     <div class="nav-container">
         <div class="ul-box">
             <ul class="nav-ul">
-                <li  v-for="(item,index) in nav" tag="li" :class="{selected: index === curIndex}" @click="changeTab(index)">
-                    <router-link :to= "{path: item.url + '/' + item.type }">{{item.text}}</router-link>
+                <li  v-for="(item,index) in nav">
+                    <router-link @click.native="changeTab(item.id)" :to= "{path: '/home/' + item.id}" tag="a" :data-id="item.id" :class="{selected: curIndex === item.id}">{{item.name}}</router-link>
                 </li>
             </ul>
         </div>
@@ -11,78 +11,33 @@
     </div>
 </template>
 <script>
+    import store from '../store'
+    import {mapActions, mapState} from 'vuex'
     export default {
         data () {
             return {
-                nav: [
-                    {
-                        url: '/home', 
-                        type: 'all', 
-                        text: '推荐'
-                    },
-                    {
-                        url: '/home', 
-                        type: 'video', 
-                        text: '视频'
-                    },
-                    {
-                        url: '/home', 
-                        type: 'hot', 
-                        text: '热点'
-                    },
-                    {
-                        url: '/home', 
-                        type: 'social', 
-                        text: '社会'
-                    },
-                    {
-                        url: '/home', 
-                        type: 'entertainment', 
-                        text: '娱乐'
-                    },
-                    {
-                        url: '/home', 
-                        type: 'military', 
-                        text: '军事'
-                    },
-                    {
-                        url: '/home', 
-                        type: 'tech', 
-                        text: '科技'
-                    },
-                    {
-                        url: '/home', 
-                        type: 'car', 
-                        text: '汽车'
-                    },
-                    {
-                        url: '/home', 
-                        type: 'sports', 
-                        text: '体育'
-                    },
-                    {
-                        url: '/home', 
-                        type: 'finance', 
-                        text: '财经'
-                    },
-                    {
-                        url: '/home', 
-                        type: 'word', 
-                        text: '国际'
-                    },
-                    {
-                        url: '/home', 
-                        type: 'fashion', 
-                        text: '时尚'
-                    }
-                ],
                 curIndex: 0
             }
         },
         methods: {
-            changeTab: function (index) {
+            ...mapActions([
+                'getNavList',
+                'getNewsList'
+            ]),
+            changeTab (index) {
                 this.curIndex = index
+                this.getNewsList(index)
             }
+        },
+        computed: {
+            ...mapState({
+                nav (state) {
+                    return state.nav;
+                }
+            })
+        },
+        created () {
+            this.getNavList();
         }
     }
 </script>
@@ -97,10 +52,11 @@
             height: 0.8rem;
             overflow-x: scroll;
             .nav-ul {
-                width: 15.2rem;
+                /* width: 15.2rem; */
                 line-height: 0.8rem;
                 display: -webkit-box;
                 height: 0.8rem;
+                margin-right: 0.2rem;
                 li {
                     font-size: 0.32rem;
                     text-align: center;
@@ -108,11 +64,12 @@
                     a {
                         color: #505050;
                     }
+                    &:last-child {
+                        padding-right: 1rem;
+                    }
                 }
                 .selected {
-                    a {
-                        color: #f85959;
-                    }
+                    color: #f85959;
                 }
             }
         }

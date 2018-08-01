@@ -7,7 +7,7 @@
             </div>
         </div>
         <div class="channel-box">
-            <span class="channel-box-title special-title" v-if="channelList.changeChannel==true">最多16个频道，请先删除一些</span>
+            <span class="channel-box-title special-title" v-if="changeChannel==true">最多16个频道，请先删除一些</span>
             <span class="channel-box-title" v-else>点击添加以下频道</span>
             <div class="no-channel-box">
                 <channel-span v-for="(item, index) in channelList.noChannelList.list" :channelName="item.name" :key="index" :type=1 :index="index"></channel-span>
@@ -17,7 +17,7 @@
 </template>
 <script>
     import channelSpan from './channelSpan'
-    import { mapState, mapActions, mapGetters} from 'vuex'
+    import { mapState, mapActions} from 'vuex'
     export default {
         components: {
             channelSpan
@@ -27,17 +27,22 @@
             }
         },
         computed: {
-            ...mapState([
-                'channelList'
-            ]),
-            ...mapGetters([
-                'hasChannel'
-            ])
+            ...mapState({
+                channelList (state) {
+                    return state.channelList;
+                },
+                changeChannel (state) {
+                    return state.changeChannel;
+                }
+            })
         },
         methods: {
             ...mapActions ([
-                'moveTags'
+                'getNavList'
             ])
+        },
+        created () {
+            this.getNavList();
         }
     }
 </script>

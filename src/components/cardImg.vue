@@ -1,5 +1,5 @@
 <template>
-    <div class="imgs-box">
+    <div class="imgs-box" :data-num="imgClass">
         <img v-for="(item,index) in cardImg" :src="item.url" alt="" v-if="index < 3" :class="{advImg: imgClass === 1}">
     </div>
 </template>

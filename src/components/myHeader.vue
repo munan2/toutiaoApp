@@ -1,17 +1,19 @@
 <template>
     <div class="header-container">
         <div class="header-box header">
-            <a href="#" class="email-logo"></a>
+            <a href="#" class="email-logo" @click="showModal()"></a>
             <div class="logo-box">
                 <a href="#" class="logo"></a>
             </div>
-            <a href="" class="search-logo"></a>
+            <a href="/SearchBox" class="search-logo"></a>
         </div>
         <nav-box></nav-box>
     </div>   
 </template>
 <script>
-    import navBox from './navBox';
+    import navBox from './navBox'
+    import comModal from './comModal.vue'
+    import store from '../store/'
     export default {
         name: 'myHeader',
         data () {
@@ -22,6 +24,11 @@
         ,
         components: {
             navBox
+        },
+        methods: {
+            showModal () {
+                store.state.modalFlag = true;
+            }
         }
     }
 </script>
@@ -79,31 +86,5 @@
             background-size: 100%;
             margin-top: 0.2rem;
         }
-        
-        /* .search-box {
-            float: right;
-            position: relative;
-            width: 3rem;
-            height: 0.5rem;
-            line-height: 0.5rem;
-            margin-top: 0.14rem;
-            font-size: 0.24pxrem;
-            .el-icon-search {
-                position: absolute;
-                font-size: 0.24rem;
-                top: 0.15rem;
-                left: 0.12rem;
-                color: #333;
-            }
-            .search-content {
-                float: left;
-                text-indent: 0.5rem;              
-                width: 3rem;
-                height: 0.5rem;
-                line-height: 0.5rem;
-                border-radius: 0.1rem;
-                border: 1px solid #aaa;
-            }
-        } */
     }
 </style>
