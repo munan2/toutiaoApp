@@ -8,7 +8,8 @@
     import {mapState, mapActions} from 'vuex'
     export default {
         props: [
-            'headerTitle'
+            'headerTitle',
+            'backType'
         ],
         data () {
             return {
@@ -20,7 +21,9 @@
                 'changeNav'
             ]),
             backHome () {
-                this.changeNav()
+                if (this.backType === 'channel') {
+                    this.changeNav()
+                }
                 this.$router.push('/')
                 // window.history.back(-1); 
             }

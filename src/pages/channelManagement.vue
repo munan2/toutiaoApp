@@ -1,6 +1,6 @@
 <template>
     <div>
-        <com-header :headerTitle="headerTitle"></com-header>
+        <com-header :headerTitle="headerTitle" :backType="backType"></com-header>
         <channel-box></channel-box>
     </div>
 </template>
@@ -14,7 +14,8 @@
         },
         data () {
             return {
-                headerTitle: '频道管理'
+                headerTitle: '频道管理',
+                backType: 'channel'
             }
         }
     }
