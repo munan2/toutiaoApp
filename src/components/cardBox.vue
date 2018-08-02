@@ -1,5 +1,5 @@
 <template>
-    <div class="card-box" :data-flag="newsList.flag">
+    <div v-if="newsList" class="card-box" :data-flag="newsList.flag" :data-type="newsList.type">
             <div v-if="newsList.img.length === 1 && newsList.flag !==3 " class="card-box-container card-box-container-one">
                 <div class="card-header card-img-one">
                     <h2 v-html="newsList.title"></h2>

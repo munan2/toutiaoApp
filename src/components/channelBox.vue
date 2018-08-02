@@ -2,14 +2,14 @@
     <div class="channel-content-box">
         <div class="channel-box">
             <span class="channel-box-title">点击删除以下频道</span>
-            <div class="have-channel-box">
+            <div class="have-channel-box" v-if="channelList.hasChannelList">
                 <channel-span v-for="(item, index) in channelList.hasChannelList.list" :channelName="item.name" :key="index" :type=0 :index="index"></channel-span>
             </div>
         </div>
         <div class="channel-box">
             <span class="channel-box-title special-title" v-if="changeChannel==true">最多16个频道，请先删除一些</span>
             <span class="channel-box-title" v-else>点击添加以下频道</span>
-            <div class="no-channel-box">
+            <div class="no-channel-box" v-if="channelList.noChannelList">
                 <channel-span v-for="(item, index) in channelList.noChannelList.list" :channelName="item.name" :key="index" :type=1 :index="index"></channel-span>
             </div>
         </div>
@@ -24,15 +24,17 @@
         },
         data () {
             return {
+                hasChannelList: {},
+                noChannelList: {}
             }
         },
         computed: {
             ...mapState({
                 channelList (state) {
-                    return state.channelList;
+                    return state.channelList
                 },
                 changeChannel (state) {
-                    return state.changeChannel;
+                    return state.changeChannel
                 }
             })
         },
@@ -42,7 +44,9 @@
             ])
         },
         created () {
-            this.getNavList();
+            this.$nextTick (function () {
+                this.getNavList()
+            })
         }
     }
 </script>

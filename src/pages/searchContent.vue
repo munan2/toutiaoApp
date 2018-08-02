@@ -61,10 +61,8 @@
                 if (this.searchTip !=='') {
                     this.searchNewsList(this.searchTip)
                     this.changeHotFlag()
-                    console.log(1 + this.hotFlag)
                 } else if (this.hotFlag === false && this.searchTip === ''){
                     this.changeHotFlag()
-                    console.log(2 + this.hotFlag)
                 }
             }
         },

@@ -14,10 +14,16 @@ Mock.mock('/api/deleteNavList', 'post', function (options) {
 Mock.mock('/api/getNewsList', 'post', function (options) {
   let data = JSON.parse(options.body)
   let newsId = data.id
+  let pageNum = data.pageNum
   let newsArr = []
+  let newsNum = (pageNum + 1) * 10
+  let num = 0
   newsList.data.newsList.forEach((value, index, arr) => {
     if (value.type === newsId) {
-      newsArr.push(value)
+      if (num < newsNum) {
+        num++
+        newsArr.push(value)
+      }
     }
   })
   let newsListTwo = {

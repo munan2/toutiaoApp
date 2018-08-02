@@ -6,14 +6,15 @@ import mutations from './mutations'
 import getters from './getters'
 Vue.use(Vuex)
 const state = {
-    changeChannel: false,
+    changeChannel: false, //判断选中频道是否超过16个标志
     nav: [],
     channelList: {},
     newsList: [],
-    modalFlag: false,
+    modalFlag: false, //点击邮箱图标展示弹窗标志
     hotList: [],
     hotFlag: true,
-    seaNewsList: []
+    seaNewsList: [],
+    showMoreFlag: false //加载中标志
 }
 export default new Vuex.Store({
     state,

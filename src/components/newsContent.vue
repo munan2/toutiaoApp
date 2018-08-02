@@ -6,6 +6,7 @@
 <script>
     import cardBox from '../components/cardBox'
     import {mapActions, mapState} from 'vuex'
+    import mock from '../mock'
     export default {
         data () {
             return {
@@ -23,11 +24,11 @@
             ...mapState({
                 newsList (state) {
                     return state.newsList
+                },
+                showMoreFlag (state) {
+                    return state.showMoreFlag
                 }
             })
-        },
-        created () {
-            this.getNewsList(0);
         }
     }
 </script>

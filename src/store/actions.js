@@ -18,12 +18,18 @@ export default {
         }).then(res => {
         })
     },
-    getNewsList ({commit, state}, id) {
+    getNewsList ({commit, state}, obj) {
         axios.post('/api/getNewsList',{
-            id: id
+            id: obj.id,
+            pageNum: obj.pageNum
         }).then(res => {
             if (res.data.state === 1) {
-                state.newsList = res.data.data.newsList;
+                let length = res.data.data.newsList.length
+                if (length > 0) {
+                    state.newsList = res.data.data.newsList;
+                } else {
+                    state.newsList = []
+                }
             }
         })
     },
@@ -44,6 +50,9 @@ export default {
         })
     },
     changeHotFlag ({commit, state}) {
-        state.hotFlag = !state.hotFlag;
+        state.hotFlag = !state.hotFlag
+    },
+    changeshowMoreFlag ({commit, state}) {
+        state.showMoreFlag = !state.showMoreFlag
     }
 }

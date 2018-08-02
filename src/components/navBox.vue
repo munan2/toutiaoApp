@@ -16,7 +16,8 @@
     export default {
         data () {
             return {
-                curIndex: 0
+                curIndex: 0,
+                pageNum: 0
             }
         },
         methods: {
@@ -25,19 +26,51 @@
                 'getNewsList'
             ]),
             changeTab (index) {
+                this.pageNum = 0
                 this.curIndex = index
-                this.getNewsList(index)
+                this.getList(this.curIndex)
+            },
+            getList (index) {
+                if (!index) {
+                    index = 0
+                }
+                this.getNewsList({
+                    id: index,
+                    pageNum: this.pageNum
+                })
+            },
+            scrollEvent () {
+                window.onscroll = function () {
+                    var scrollT = document.documentElement.scrollTop || document.body.scrollTop;
+                    var scrollH = document.documentElement.scrollHeight || document.body.scrollHeight;
+                    var clientH = document.documentElement.clientHeight || document.body.clientHeight; 
+                    if (scrollT >= scrollH - clientH) {
+                        this.pageNum++
+                        setTimeout (function () {
+                            this.getList(this.curIndex)
+                        }.bind(this), 500)
+                        
+                    }
+                }.bind(this)
             }
         },
         computed: {
             ...mapState({
                 nav (state) {
-                    return state.nav;
+                    return state.nav
+                },
+                showMoreFlag (state) {
+                    return state.showMoreFlag
+                },
+                noshowAll (state) {
+                    return state.noshowAll
                 }
             })
         },
         created () {
-            this.getNavList();
+            this.getNavList()
+            this.getList()
+            this.scrollEvent()
         }
     }
 </script>
