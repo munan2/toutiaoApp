@@ -14,7 +14,10 @@ const state = {
     hotList: [],
     hotFlag: true,
     seaNewsList: [],
-    showMoreFlag: false //加载中标志
+    showMoreFlag: false, //加载中标志
+    canGetMoreList: true,
+    noGetMoreList: false,
+    newsFlag: 0
 }
 export default new Vuex.Store({
     state,

@@ -16,20 +16,24 @@ Mock.mock('/api/getNewsList', 'post', function (options) {
   let newsId = data.id
   let pageNum = data.pageNum
   let newsArr = []
+  let newsArr2 = []
   let newsNum = (pageNum + 1) * 10
-  let num = 0
+  let num = pageNum * 10
   newsList.data.newsList.forEach((value, index, arr) => {
     if (value.type === newsId) {
-      if (num < newsNum) {
-        num++
-        newsArr.push(value)
-      }
+      newsArr.push(value)
+    }
+  })
+  newsArr.forEach((value, index, arr) => {
+    if (index > (num-1) && num < newsNum) {
+      num++
+      newsArr2.push(value)
     }
   })
   let newsListTwo = {
     "state": 1,
     "data": {
-      newsList: newsArr
+      newsList: newsArr2
     }
   }
   return Mock.mock(newsListTwo)

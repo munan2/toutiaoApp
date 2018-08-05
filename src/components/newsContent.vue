@@ -1,6 +1,8 @@
 <template>
     <div class="news-container">
         <card-box v-for="(item, index) in newsList" :newsList="item" :key="index"></card-box>
+        <span v-if="showMoreFlag">加载中</span>
+        <span v-if="noGetMoreList">加载到底部</span>
     </div>
 </template>
 <script>
@@ -27,8 +29,13 @@
                 },
                 showMoreFlag (state) {
                     return state.showMoreFlag
+                },
+                noGetMoreList (state) {
+                    return state.noGetMoreList
                 }
             })
+        },
+        created () {
         }
     }
 </script>

@@ -26,10 +26,19 @@ export default {
             if (res.data.state === 1) {
                 let length = res.data.data.newsList.length
                 if (length > 0) {
-                    state.newsList = res.data.data.newsList;
+                    if (state.newsFlag !== obj.id) {
+                        state.newsList = [].concat(res.data.data.newsList)
+                    } else {
+                        state.newsList = state.newsList.concat(res.data.data.newsList)
+                    }
+                    state.canGetMoreList = true
+                    state.noGetMoreList = false
                 } else {
-                    state.newsList = []
+                    state.canGetMoreList = false
+                    state.noGetMoreList = true
                 }
+                state.newsFlag = obj.id
+                state.showMoreFlag = false
             }
         })
     },

@@ -2,7 +2,7 @@
     <div class="nav-container">
         <div class="ul-box">
             <ul class="nav-ul">
-                <li  v-for="(item,index) in nav">
+                <li  v-for="(item,index) in nav" :key="index">
                     <router-link @click.native="changeTab(item.id)" :to= "{path: '/home/' + item.id}" tag="a" :data-id="item.id" :class="{selected: curIndex === item.id}">{{item.name}}</router-link>
                 </li>
             </ul>
@@ -23,7 +23,8 @@
         methods: {
             ...mapActions([
                 'getNavList',
-                'getNewsList'
+                'getNewsList',
+                'changeshowMoreFlag'
             ]),
             changeTab (index) {
                 this.pageNum = 0
@@ -33,6 +34,9 @@
             getList (index) {
                 if (!index) {
                     index = 0
+                }
+                if (this.newsFlag !== index) {
+                    window.scrollTo(0,0);
                 }
                 this.getNewsList({
                     id: index,
@@ -44,11 +48,13 @@
                     var scrollT = document.documentElement.scrollTop || document.body.scrollTop;
                     var scrollH = document.documentElement.scrollHeight || document.body.scrollHeight;
                     var clientH = document.documentElement.clientHeight || document.body.clientHeight; 
-                    if (scrollT >= scrollH - clientH) {
+                    if (scrollT >= scrollH - clientH && store.state.canGetMoreList) {
                         this.pageNum++
+                        store.state.showMoreFlag = true
+                        store.state.canGetMoreList = false
                         setTimeout (function () {
                             this.getList(this.curIndex)
-                        }.bind(this), 500)
+                        }.bind(this), 200)
                         
                     }
                 }.bind(this)
@@ -64,6 +70,9 @@
                 },
                 noshowAll (state) {
                     return state.noshowAll
+                },
+                newsFlag (state) {
+                    return state.newsFlag
                 }
             })
         },
